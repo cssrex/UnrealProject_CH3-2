@@ -9,10 +9,12 @@ ACMPlayerPawn::ACMPlayerPawn()
 	PrimaryActorTick.bCanEverTick = true;
 
 	CapsuleCollision = CreateDefaultSubobject<UCapsuleComponent>(TEXT("CapusleCollision"));
+	CapsuleCollision->SetSimulatePhysics(false);
 	SetRootComponent(CapsuleCollision);
-
+	
 	SkeletalMesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("SkeletalMesh"));
 	SkeletalMesh->SetupAttachment(CapsuleCollision);
+	SkeletalMesh->SetSimulatePhysics(false);
 
 	SpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArm"));
 	SpringArm->SetupAttachment(CapsuleCollision);

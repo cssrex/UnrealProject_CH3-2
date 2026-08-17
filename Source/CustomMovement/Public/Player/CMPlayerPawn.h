@@ -26,7 +26,7 @@ public:
 
 protected:
 	UPROPERTY(VisibleAnywhere, Category = "Item|Components")
-	TObjectPtr<UCapsuleComponent> CapusleCollision;
+	TObjectPtr<UCapsuleComponent> CapsuleCollision;
 
 	UPROPERTY(VisibleAnywhere, Category = "Item|Components")
 	TObjectPtr<USkeletalMeshComponent> SkeletalMesh;
