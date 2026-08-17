@@ -9,20 +9,38 @@ class USkeletalMeshComponent;
 class USpringArmComponent;
 class UCameraComponent;
 
+struct FInputActionValue;
+
 UCLASS()
 class CUSTOMMOVEMENT_API ACMPlayerPawn : public APawn
 {
 	GENERATED_BODY()
 
 public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Value")
+	float MoveSpeed;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Value")
+	float MouseXSensitive;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Value")
+	float MouseYSensitive;
+
+public:
 	ACMPlayerPawn();
 
 protected:
 	virtual void BeginPlay() override;
-
-public:	
 	virtual void Tick(float DeltaTime) override;
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+protected:
+	UFUNCTION()
+	void MoveStart(const FInputActionValue& value);
+	UFUNCTION()
+	void MoveStop(const FInputActionValue& value);
+	UFUNCTION()
+	void Look(const FInputActionValue& value);
 
 protected:
 	UPROPERTY(VisibleAnywhere, Category = "Item|Components")
@@ -36,5 +54,8 @@ protected:
 
 	UPROPERTY(VisibleAnywhere, Category = "Item|Components")
 	TObjectPtr<UCameraComponent> Camera;
+
+private:
+	FVector2D MoveInput;
 
 };
