@@ -47,6 +47,7 @@ public:
 
 private:
 	void SetPlayerPawnEnabled(bool bEnabled);
+
 	UPROPERTY()
 	TObjectPtr<ACMPlayerPawn> PlayerPawn;
 	UPROPERTY()
