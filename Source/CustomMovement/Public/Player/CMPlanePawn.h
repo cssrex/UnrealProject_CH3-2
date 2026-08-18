@@ -2,41 +2,40 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
-#include "CMPlayerPawn.generated.h"
+#include "CMPlanePawn.generated.h"
 
-class UCapsuleComponent;
-class USphereComponent;
-class USkeletalMeshComponent;
+class UBoxComponent;
+class UStaticMeshComponent;
 class USpringArmComponent;
 class UCameraComponent;
-class ACMPlanePawn;
 
 struct FInputActionValue;
 
 UCLASS()
-class CUSTOMMOVEMENT_API ACMPlayerPawn : public APawn
+class CUSTOMMOVEMENT_API ACMPlanePawn : public APawn
 {
 	GENERATED_BODY()
-
-public:
-	virtual FVector GetVelocity() const override;
-	UFUNCTION(BlueprintCallable)
-	bool GetShouldMove() const;
-	UFUNCTION(BlueprintCallable)
-	bool IsFalling() const;
 
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Value")
 	float MoveSpeed;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Value")
+	float UpDownAcceleration;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Value")
+	float MaxUpDownSpeed;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Value")
 	float MouseXSensitive;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Value")
 	float MouseYSensitive;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Value")
+	float MouseZSensitive;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Value")
 	float GravityAcceleration;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Value")
+	float AirControlRatio;
 
 public:
-	ACMPlayerPawn();
+	ACMPlanePawn();
 
 protected:
 	virtual void BeginPlay() override;
@@ -54,33 +53,11 @@ protected:
 	void Interact(const FInputActionValue& value);
 
 protected:
-	UFUNCTION()
-	void OnInteractionBeginOverlap(
-		UPrimitiveComponent* OverlappedComponent,
-		AActor* OtherActor,
-		UPrimitiveComponent* OtherComp,
-		int32 OtherBodyIndex,
-		bool bFromSweep,
-		const FHitResult& SweepResult
-	);
-
-	UFUNCTION()
-	void OnInteractionEndOverlap(
-		UPrimitiveComponent* OverlappedComponent,
-		AActor* OtherActor,
-		UPrimitiveComponent* OtherComp,
-		int32 OtherBodyIndex
-	);
-
-protected:
 	UPROPERTY(VisibleAnywhere, Category = "Item|Components")
-	TObjectPtr<UCapsuleComponent> CapsuleCollision;
+	TObjectPtr<UBoxComponent> BoxCollision;
 
 	UPROPERTY(VisibleAnywhere, Category = "Item|Components")
-	TObjectPtr<USphereComponent> SphereCollision;
-
-	UPROPERTY(VisibleAnywhere, Category = "Item|Components")
-	TObjectPtr<USkeletalMeshComponent> SkeletalMesh;
+	TObjectPtr<UStaticMeshComponent> StaticMesh;
 
 	UPROPERTY(VisibleAnywhere, Category = "Item|Components")
 	TObjectPtr<USpringArmComponent> SpringArm;
@@ -91,11 +68,7 @@ protected:
 private:
 	bool CheckGround();
 
-	FVector2D MoveInput;
+	FVector MoveInput;
 	FVector VerticalVelocity;
-	FVector CurrentVelocity;
 	bool bIsGround;
-
-	UPROPERTY()
-	TObjectPtr<ACMPlanePawn> NearbyPlane;
 };
