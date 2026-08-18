@@ -44,7 +44,6 @@ ACMPlanePawn::ACMPlanePawn()
 
 	MoveSpeed = 1500.0f;
 	UpDownAcceleration = 1500.0f;
-	MaxUpDownSpeed = 800.0f;
 
 	MouseXSensitive = 2.0f;
 	MouseYSensitive = 1.0f;
@@ -82,7 +81,6 @@ void ACMPlanePawn::Tick(float DeltaTime)
 	}
 
 	VerticalVelocity += FVector::UpVector * GravityAcceleration * DeltaTime;
-	VerticalVelocity = VerticalVelocity.GetClampedToMaxSize(MaxUpDownSpeed);
 	
 	if (bIsGround && VerticalVelocity.Z < 0.0f)
 	{

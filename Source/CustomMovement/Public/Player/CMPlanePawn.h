@@ -22,8 +22,6 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Value")
 	float UpDownAcceleration;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Value")
-	float MaxUpDownSpeed;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Value")
 	float MouseXSensitive;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Value")
 	float MouseYSensitive;
