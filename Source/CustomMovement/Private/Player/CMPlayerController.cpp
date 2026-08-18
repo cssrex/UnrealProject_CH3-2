@@ -19,9 +19,10 @@ void ACMPlayerController::EnterPlane(ACMPlanePawn* Plane)
 
 	PlanePawn = Plane;
 
-	PlayerPawn->SetActorHiddenInGame(true);
-	PlayerPawn->SetActorEnableCollision(false);
+	// 플레이어 Pawn 숨기기
+	SetPlayerPawnEnabled(false);
 
+	// 비행기 입력으로 전환
 	if (ULocalPlayer* LocalPlayer = GetLocalPlayer())
 	{
 		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = LocalPlayer->GetSubsystem<UEnhancedInputLocalPlayerSubsystem>())
@@ -33,7 +34,8 @@ void ACMPlayerController::EnterPlane(ACMPlanePawn* Plane)
 			}
 		}
 	}
-
+	
+	// 비행기 Pawn에 빙의
 	Possess(PlanePawn);
 }
 
@@ -47,10 +49,13 @@ void ACMPlayerController::ExitPlane()
 
 	const FVector ExitLocation = PlanePawn->GetActorLocation() + PlanePawn->GetActorUpVector() * 50.0f + PlanePawn->GetActorRightVector() * 200.0f;
 
+	// 플레이어 Pawn 위치를 비행기 옆으로 이동
 	PlayerPawn->SetActorLocation(ExitLocation);
-	PlayerPawn->SetActorHiddenInGame(false);
-	PlayerPawn->SetActorEnableCollision(true);
 
+	// 플레이어 Pawn 나타내기
+	SetPlayerPawnEnabled(true);
+
+	// 플레이어 입력으로 전환
 	if (ULocalPlayer* LocalPlayer = GetLocalPlayer())
 	{
 		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = LocalPlayer->GetSubsystem<UEnhancedInputLocalPlayerSubsystem>())
@@ -63,6 +68,7 @@ void ACMPlayerController::ExitPlane()
 		}
 	}
 
+	// 플레이어 Pawn에 빙의
 	Possess(PlayerPawn);
 
 	PlanePawn = nullptr;
@@ -71,7 +77,10 @@ void ACMPlayerController::ExitPlane()
 ACMPlayerController::ACMPlayerController() :
 	PlayerInputMappingContext(nullptr),
 	PlayerMoveAction(nullptr),
-	PlayerLookAction(nullptr)
+	PlayerLookAction(nullptr),
+	PlaneInputMappingContext(nullptr),
+	PlaneMoveAction(nullptr),
+	PlaneLookAction(nullptr)
 {
 }
 
@@ -89,4 +98,15 @@ void ACMPlayerController::BeginPlay()
 			}
 		}
 	}
+}
+
+void ACMPlayerController::SetPlayerPawnEnabled(bool bEnabled)
+{
+	if (!PlayerPawn)
+	{
+		return;
+	}
+
+	PlayerPawn->SetActorHiddenInGame(!bEnabled);
+	PlayerPawn->SetActorEnableCollision(bEnabled);
 }

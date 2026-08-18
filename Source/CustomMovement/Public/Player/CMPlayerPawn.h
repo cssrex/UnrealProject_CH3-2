@@ -19,21 +19,22 @@ class CUSTOMMOVEMENT_API ACMPlayerPawn : public APawn
 	GENERATED_BODY()
 
 public:
+	// 애니메이션 전용 함수
 	virtual FVector GetVelocity() const override;
 	UFUNCTION(BlueprintCallable)
 	bool GetShouldMove() const;
 	UFUNCTION(BlueprintCallable)
 	bool IsFalling() const;
 
-public:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Value")
+protected:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Settings|Value")
 	float MoveSpeed;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Value")
-	float MouseXSensitive;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Value")
-	float MouseYSensitive;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Value")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Settings|Value")
 	float GravityAcceleration;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Settings|Input")
+	float MouseXSensitive;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Settings|Input")
+	float MouseYSensitive;
 
 public:
 	ACMPlayerPawn();

@@ -16,21 +16,22 @@ class CUSTOMMOVEMENT_API ACMPlanePawn : public APawn
 {
 	GENERATED_BODY()
 
-public:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Value")
+protected:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Settings|Value")
 	float MoveSpeed;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Value")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Settings|Value")
 	float UpDownAcceleration;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Value")
-	float MouseXSensitive;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Value")
-	float MouseYSensitive;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Value")
-	float MouseZSensitive;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Value")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Settings|Value")
 	float GravityAcceleration;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Value")
-	float AirControlRatio;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Settings|Value")
+	float AirControlRatio; // 공중에서의 속도 배율
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Settings|Input")
+	float MouseXSensitive;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Settings|Input")
+	float MouseYSensitive;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Settings|Input")
+	float MouseZSensitive;
+	
 
 public:
 	ACMPlanePawn();

@@ -11,7 +11,6 @@ ACMPlanePawn::ACMPlanePawn()
 	PrimaryActorTick.bCanEverTick = true;
 
 	BoxCollision = CreateDefaultSubobject<UBoxComponent>(TEXT("BoxCollision"));
-	SetRootComponent(BoxCollision);
 	BoxCollision->SetSimulatePhysics(false);
 	BoxCollision->SetBoxExtent(FVector(150.0f, 100.0f, 50.0f));
 	BoxCollision->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
@@ -21,6 +20,7 @@ ACMPlanePawn::ACMPlanePawn()
 	BoxCollision->SetCollisionResponseToChannel(ECC_WorldDynamic,ECR_Block);
 	BoxCollision->SetCollisionResponseToChannel(ECC_Pawn,ECR_Block);
 	BoxCollision->SetGenerateOverlapEvents(true);
+	SetRootComponent(BoxCollision);
 
 	StaticMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMesh"));
 	StaticMesh->SetupAttachment(BoxCollision);
